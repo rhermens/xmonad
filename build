@@ -1,0 +1,13 @@
+#!/bin/sh
+
+SRC_DIR=~/Code/xmonad-exe
+
+EXE_NAME=xmonad
+
+unset STACK_YAML
+
+cd $SRC_DIR
+
+stack build
+
+ln -f -T $(stack exec -- which $EXE_NAME) $1
