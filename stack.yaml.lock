@@ -3,7 +3,21 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/topics/lock_files
 
-packages: []
+packages:
+- completed:
+    hackage: xmobar-0.48.1@sha256:95baa3aa157182134b1e21d2ffb42ee0e148518ca21afda187faa5ae63917f17,15154
+    pantry-tree:
+      sha256: 408cf5e51845cd593bccbc0efd1569c77f1846f99bea1bb0c78568b4513dcdfc
+      size: 9769
+  original:
+    hackage: xmobar-0.48.1@sha256:95baa3aa157182134b1e21d2ffb42ee0e148518ca21afda187faa5ae63917f17,15154
+- completed:
+    hackage: X11-rm-0.2@sha256:b6af9679eda6460426dc441992582556e82041b81aeff5e1a4202e1ab06015a8,741
+    pantry-tree:
+      sha256: 3ff813241b55679eeb98b74886f064cd0e5e49cb58ab5ab94c1c89047357f89b
+      size: 210
+  original:
+    hackage: X11-rm-0.2@sha256:b6af9679eda6460426dc441992582556e82041b81aeff5e1a4202e1ab06015a8,741
 snapshots:
 - completed:
     sha256: 889b6bffaf21cd509a7c6017703281e77c2f6df0a0908a11c85fa97fcbf11d4e

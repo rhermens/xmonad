@@ -1,6 +1,6 @@
-name:                xmonad-exe
+name:                xmonad-cfg
 version:             0.1.0.0
-github:              "githubuser/xmonad-exe"
+github:              "githubuser/xmonad-cfg"
 license:             BSD-3-Clause
 author:              "Author name here"
 maintainer:          "example@example.com"
@@ -21,8 +21,10 @@ description:         Please see the README on GitHub at <https://github.com/gith
 
 dependencies:
 - base >= 4.7 && < 5
+- X11-rm
 - xmonad
 - xmonad-contrib
+- xmobar
 
 ghc-options:
 - -Wall
@@ -35,11 +37,37 @@ ghc-options:
 - -Wpartial-fields
 - -Wredundant-constraints
 
+library:
+  source-dirs: src
+
 executables:
   xmonad:
     main:                Main.hs
-    source-dirs:         src
+    source-dirs:         app/XMonad
     ghc-options:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
+    dependencies:
+    - xmonad-cfg
+  xmobar:
+    main:                Main.hs
+    source-dirs:         app/XMobar
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - xmonad-cfg
+
+tests:
+  xmonad-cfg-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - xmonad-cfg
+    - hspec
