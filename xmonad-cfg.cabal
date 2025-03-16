@@ -26,6 +26,8 @@ source-repository head
 library
   exposed-modules:
       Lib
+      Lib.Media
+      Lib.Workspaces
   other-modules:
       Paths_xmonad_cfg
   autogen-modules:
@@ -34,9 +36,9 @@ library
       src
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
-      X11-rm
+      X11
+    , X11-rm
     , base >=4.7 && <5
-    , xmobar
     , xmonad
     , xmonad-contrib
   default-language: Haskell2010
@@ -51,7 +53,8 @@ executable xmobar
       app/XMobar
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      X11-rm
+      X11
+    , X11-rm
     , base >=4.7 && <5
     , xmobar
     , xmonad
@@ -69,9 +72,9 @@ executable xmonad
       app/XMonad
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      X11-rm
+      X11
+    , X11-rm
     , base >=4.7 && <5
-    , xmobar
     , xmonad
     , xmonad-cfg
     , xmonad-contrib
@@ -88,10 +91,10 @@ test-suite xmonad-cfg-test
       test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      X11-rm
+      X11
+    , X11-rm
     , base >=4.7 && <5
     , hspec
-    , xmobar
     , xmonad
     , xmonad-cfg
     , xmonad-contrib

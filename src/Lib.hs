@@ -15,7 +15,6 @@ getColor color = do
     case db of
         Just db' -> do
             res <- rmGetResource db' color "color"
-            print res
             case res of
                 Just (_, v) -> rmValue v
                 Nothing -> return "black"

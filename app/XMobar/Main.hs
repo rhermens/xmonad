@@ -1,5 +1,5 @@
 import Xmobar
-import Lib
+import Lib (getXResources, XResources(..))
 
 main :: IO ()
 main = do
