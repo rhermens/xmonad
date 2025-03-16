@@ -1,5 +1,6 @@
 import Lib
 import Lib.Media
+import Lib.Workspaces (followTo)
 import Text.Printf (printf)
 import XMonad
 import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen)
@@ -7,8 +8,6 @@ import XMonad.Hooks.StatusBar (StatusBarConfig, dynamicEasySBs, statusBarProp)
 import XMonad.Hooks.StatusBar.PP (PP (ppSep))
 import XMonad.Util.EZConfig (additionalKeys)
 import XMonad.Actions.CycleWS
-import XMonad.Util.WorkspaceCompare (getSortByIndex)
-import XMonad.StackSet (shift, greedyView)
 
 main :: IO ()
 main = do
@@ -26,7 +25,7 @@ cfg =
     }
     `additionalKeys` [ ((kMask, xK_d), spawn "j4-dmenu-desktop --dmenu='dmenu -i -fn \"monospace\" -nb \"#24283b\" -nf \"#c0caf5\" -sb \"#414868\" -sf \"#7aa2f7\"'"),
                        ((kMask, xK_grave), moveTo Next emptyWS),
-                       ((kMask .|. shiftMask, xK_grave), doTo Next emptyWS getSortByIndex (\ws -> windows (shift ws) >> windows (greedyView ws)))
+                       ((kMask .|. shiftMask, xK_grave), followTo Next emptyWS)
                      ] ++ mediaKeys kMask
 
 barCfg :: PP
