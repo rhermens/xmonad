@@ -8,7 +8,7 @@ main = do
 
 config :: Config
 config = defaultConfig {
-  font = "xft:monospace-11"
+  font = "monospace 11"
   , additionalFonts = []
   , borderWidth = 0
   , border = FullB
@@ -33,11 +33,12 @@ config = defaultConfig {
                , Run $ Memory ["-t","Mem: <usedratio>%"] 10
                , Run $ Swap [] 10
                , Run $ Date "%a %b %_d %Y %H:%M:%S" "date" 10
+               , Run $ Volume "default" "Master" [] 10
                , Run XMonadLog
               ]
   , sepChar = "%"
   , alignSep = "}{"
-  , template = "%XMonadLog% }{ %cpu% | %memory% * %swap% | <fc=#ee9a00>%date%</fc>"
+  , template = "%XMonadLog% }{ %default:Master% | %cpu% | %memory% * %swap% | %date%"
 }
 
 applyXResources :: XResources -> Config -> Config
