@@ -6,8 +6,9 @@ import XMonad
 import XMonad.Actions.CycleWS
 import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen)
 import XMonad.Hooks.StatusBar (StatusBarConfig, dynamicEasySBs, statusBarProp)
-import XMonad.Hooks.StatusBar.PP (PP (ppSep))
+import XMonad.Hooks.StatusBar.PP (PP (..))
 import XMonad.Util.EZConfig (additionalKeys)
+import System.Exit (exitSuccess)
 
 main :: IO ()
 main = do
@@ -25,14 +26,20 @@ cfg =
     }
     `additionalKeys` [ ((kMask, xK_d), spawn "j4-dmenu-desktop --dmenu='dmenu -i -fn \"monospace\" -nb \"#24283b\" -nf \"#c0caf5\" -sb \"#414868\" -sf \"#7aa2f7\"'"),
                        ((kMask, xK_grave), moveTo Next emptyWS),
-                       ((kMask .|. shiftMask, xK_grave), followTo Next emptyWS)
+                       ((kMask .|. shiftMask, xK_grave), followTo Next emptyWS),
+                       ((kMask .|. shiftMask, xK_r), spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi"),
+                       ((kMask .|. shiftMask, xK_e), io exitSuccess),
+                       ((kMask, xK_q), kill),
+                       ((kMask .|. shiftMask, xK_q), kill)
                      ]
     ++ mediaKeys kMask
 
 barCfg :: PP
 barCfg =
   def
-    { ppSep = "|"
+    { ppSep = " | "
+    , ppLayout = const ""
+    , ppUrgent = (++ "!!")
     }
 
 barSpawn :: ScreenId -> StatusBarConfig
