@@ -30,7 +30,8 @@ cfg =
                        ((kMask .|. shiftMask, xK_F11), spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi"),
                        ((kMask .|. shiftMask, xK_F12), io exitSuccess),
                        ((kMask, xK_q), kill),
-                       ((kMask .|. shiftMask, xK_q), kill)
+                       ((kMask .|. shiftMask, xK_q), kill),
+                       ((kMask .|. mod1Mask, xK_l), spawn "slock")
                      ]
     ++ mediaKeys kMask
 
