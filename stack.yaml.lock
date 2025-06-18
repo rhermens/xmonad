@@ -18,6 +18,13 @@ packages:
       size: 210
   original:
     hackage: X11-rm-0.2
+- completed:
+    hackage: hashtables-1.4.2@sha256:4940cab94a15d469845ccf5225f9cb3d354c15e8127ebb58425c8b681f7721d9,10386
+    pantry-tree:
+      sha256: 65107f0c970351b971ea1f676a5e00b61e37c298a4c83c867d937f2a774501eb
+      size: 2895
+  original:
+    hackage: hashtables-1.4.2
 snapshots:
 - completed:
     sha256: 889b6bffaf21cd509a7c6017703281e77c2f6df0a0908a11c85fa97fcbf11d4e

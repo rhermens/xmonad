@@ -43,6 +43,7 @@ packages:
 extra-deps:
   - xmobar-0.50
   - X11-rm-0.2
+  - hashtables-1.4.2
 
 # Override default flag values for project packages and extra-deps
 flags:
