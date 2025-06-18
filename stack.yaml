@@ -41,8 +41,8 @@ packages:
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
 #
 extra-deps:
-  - xmobar-0.48.1@sha256:95baa3aa157182134b1e21d2ffb42ee0e148518ca21afda187faa5ae63917f17,15154
-  - X11-rm-0.2@sha256:b6af9679eda6460426dc441992582556e82041b81aeff5e1a4202e1ab06015a8,741
+  - xmobar-0.50
+  - X11-rm-0.2
 
 # Override default flag values for project packages and extra-deps
 flags:
