@@ -6,7 +6,12 @@ main = hspec spec
 
 spec :: Spec
 spec = do
-    describe "XResources" $ do
-        it "parses colors" $ do
-            resources <- getXResources
-            background resources `shouldBe` "#24283b"
+  describe "parseLine" $ do
+    it "parses a single line" $ do
+      let line = "*background: #24283b"
+      parseLine line `shouldBe` ("*background", "#24283b")
+
+  describe "getKey" $ do
+    it "parses a single line" $ do
+      let db = [("*background", "#24283b"), ("*foreground", "#c0caf5")]
+      getKey db "*background" `shouldBe` "#24283b"

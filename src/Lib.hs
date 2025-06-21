@@ -1,8 +1,4 @@
-module Lib (getXResources, XResources (..), getColor) where
-
-import Graphics.X11.XRM (RMDatabase, rmGetFileDatabase, rmGetResource, rmValue)
-import System.IO (IOMode (WriteMode), hPutStr, openFile)
-import XMonad (rmInitialize)
+module Lib (getXResources, XResources (..), parseLine, getKey, loadDb) where
 
 data XResources = XResources
   { background :: String,
@@ -10,25 +6,26 @@ data XResources = XResources
   }
   deriving (Show)
 
-getColor :: RMDatabase -> String -> IO String
-getColor db color = do
-  res <- rmGetResource db color "color"
-  case res of
-    Just (_, v) -> rmValue v
-    Nothing -> return "black"
+getKey :: [(String, String)] -> String -> String
+getKey ((k, v):xs) key
+  | k == key = v
+  | otherwise = getKey xs key
+getKey [] _ = "black"
+
+parseLine :: String -> (String, String)
+parseLine line = 
+  (key, value)
+  where
+    (key, rest) = break (== ':') line
+    value = dropWhile (== ' ') $ drop 1 rest
+
+loadDb :: IO [(String, String)]
+loadDb = do
+  db <- readFile "/home/roy/.Xresources"
+  let l = lines db
+  return $ map parseLine l
 
 getXResources :: IO XResources
 getXResources = do
-  _ <- rmInitialize
-  db <- rmGetFileDatabase "/home/roy/.Xresources"
-  case db of
-    Just db' -> do
-      bg <- getColor db' "background"
-      fg <- getColor db' "foreground"
-      return $ XResources bg fg
-    Nothing -> return $ XResources "black" "black"
-
-writeStdout :: String -> IO ()
-writeStdout s = do
-  stdout' <- openFile "/home/roy/.xmonad/stdout" WriteMode
-  hPutStr stdout' s
+  db <- loadDb
+  return $ XResources (getKey db "*background") (getKey db "*foreground")

@@ -37,7 +37,6 @@ library
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       X11
-    , X11-rm
     , base >=4.7 && <5
     , xmonad
     , xmonad-contrib
@@ -54,7 +53,6 @@ executable xmobar
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       X11
-    , X11-rm
     , base >=4.7 && <5
     , xmobar
     , xmonad
@@ -73,7 +71,6 @@ executable xmonad
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       X11
-    , X11-rm
     , base >=4.7 && <5
     , xmonad
     , xmonad-cfg
@@ -92,7 +89,6 @@ test-suite xmonad-cfg-test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       X11
-    , X11-rm
     , base >=4.7 && <5
     , hspec
     , xmonad
