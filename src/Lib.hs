@@ -2,7 +2,9 @@ module Lib (getXResources, XResources (..), parseLine, getKey, loadDb) where
 
 data XResources = XResources
   { background :: String,
-    foreground :: String
+    foreground :: String,
+    accent :: String,
+    accentForeground :: String
   }
   deriving (Show)
 
@@ -28,4 +30,4 @@ loadDb = do
 getXResources :: IO XResources
 getXResources = do
   db <- loadDb
-  return $ XResources (getKey db "*.background") (getKey db "*.foreground")
+  return $ XResources (getKey db "*.background") (getKey db "*.foreground") (getKey db "*.color8") (getKey db "*.color12")
