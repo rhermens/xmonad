@@ -28,4 +28,4 @@ loadDb = do
 getXResources :: IO XResources
 getXResources = do
   db <- loadDb
-  return $ XResources (getKey db "*background") (getKey db "*foreground")
+  return $ XResources (getKey db "*.background") (getKey db "*.foreground")
