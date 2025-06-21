@@ -9,11 +9,12 @@ import XMonad.Hooks.StatusBar (StatusBarConfig, dynamicEasySBs, statusBarProp)
 import XMonad.Hooks.StatusBar.PP (PP (..))
 import XMonad.Util.EZConfig (additionalKeys)
 import System.Exit (exitSuccess)
+import XMonad.Hooks.Rescreen (addRandrChangeHook)
 
 main :: IO ()
 main = do
   resources <- getXResources
-  xmonad . ewmhFullscreen . ewmh . dynamicEasySBs (pure . barSpawn) . applyXResources resources $ cfg
+  xmonad . ewmhFullscreen . addRandrChangeHook randrChangeHook . ewmh . dynamicEasySBs (pure . barSpawn) . applyXResources resources $ cfg
 
 kMask :: KeyMask
 kMask = mod4Mask
@@ -52,3 +53,6 @@ applyXResources res conf =
     { focusedBorderColor = background res,
       normalBorderColor = background res
     }
+
+randrChangeHook :: X ()
+randrChangeHook = spawn "autorandr --change"
