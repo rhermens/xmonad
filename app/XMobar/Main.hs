@@ -1,5 +1,10 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 import Lib (XResources (..), getXResources)
 import Xmobar
+import Data.Word (Word32)
+import DBus (MemberName, MethodError, MethodCall (methodCallDestination), methodCall)
+import DBus.Client (connectSession, getPropertyValue, Client)
 
 main :: IO ()
 main = do
@@ -68,18 +73,46 @@ config =
           Run $ Swap [] 10,
           Run $ Date "%a %b %_d %Y %H:%M:%S" "date" 10,
           Run $ Volume "default" "Master" [] 10,
+          Run $ Dunst "dunst" 1000,
           Run XMonadLog
         ],
       sepChar = "%",
       alignSep = "}{",
-      template = "%XMonadLog% }{ %default:Master% | %cpu% | %memory% * %swap% | %date%"
+      template = "%XMonadLog% }{ %default:Master% | %cpu% | %memory% * %swap% | %date% | %dunst%"
     }
 
 applyXResources :: XResources -> Config -> Config
 applyXResources res cfg =
   cfg
-    { -- borderColor = background res
+    {
       borderColor = "black",
       bgColor = background res,
       fgColor = foreground res
     }
+
+data Dunst = Dunst String Int
+  deriving (Show, Read)
+
+instance Exec Dunst where
+  alias (Dunst a _) = a
+  rate (Dunst _ r) = r
+  run _ = do
+    dbus <- connectSession
+    history <- getPropertyHistoryLength dbus
+    disp <- getPropertyDisplayedLength dbus
+
+    return $ case (history, disp) of
+      (Right h, Right d) -> show d ++ "/" ++ show h
+      (_, _) -> ""
+
+getPropertyValueWord32 :: MemberName -> Client -> IO (Either MethodError Word32)
+getPropertyValueWord32 member dbus = do
+  getPropertyValue dbus (methodCall "/org/freedesktop/Notifications" "org.dunstproject.cmd0" member) { methodCallDestination = Just "org.freedesktop.Notifications" }
+
+getPropertyHistoryLength :: Client -> IO (Either MethodError Word32)
+getPropertyHistoryLength = getPropertyValueWord32 "historyLength"
+
+getPropertyDisplayedLength :: Client -> IO (Either MethodError Word32)
+getPropertyDisplayedLength = getPropertyValueWord32 "displayedLength"
+
+

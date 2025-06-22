@@ -6,7 +6,7 @@ import XMonad
 import XMonad.Actions.CycleWS
 import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen)
 import XMonad.Hooks.StatusBar (StatusBarConfig, dynamicEasySBs, statusBarProp)
-import XMonad.Hooks.StatusBar.PP (PP (..), shorten)
+import XMonad.Hooks.StatusBar.PP (PP (..), shorten, wrap, xmobarBorder, xmobarColor)
 import XMonad.Util.EZConfig (additionalKeys)
 import System.Exit (exitSuccess)
 import XMonad.Hooks.Rescreen (addRandrChangeHook)
@@ -14,7 +14,7 @@ import XMonad.Hooks.Rescreen (addRandrChangeHook)
 main :: IO ()
 main = do
   resources <- getXResources
-  xmonad . ewmhFullscreen . addRandrChangeHook randrChangeHook . ewmh . dynamicEasySBs (pure . barSpawn) $ cfg resources
+  xmonad . ewmhFullscreen . addRandrChangeHook randrChangeHook . ewmh . dynamicEasySBs (pure . barSpawn (barCfg resources)) $ cfg resources
 
 kMask :: KeyMask
 kMask = mod4Mask
@@ -42,17 +42,19 @@ cfg xrm =
                      ]
     ++ mediaKeys kMask
 
-barCfg :: PP
-barCfg =
+barCfg :: XResources -> PP
+barCfg xrm =
   def
     { ppSep = " | "
     , ppLayout = const ""
     , ppUrgent = (++ "!!")
     , ppTitle  = shorten 160
+    , ppCurrent = xmobarBorder "Bottom" (accentForeground xrm) 2
+    , ppVisible = xmobarBorder "Bottom" (accent xrm) 2
     }
 
-barSpawn :: ScreenId -> StatusBarConfig
-barSpawn sid = statusBarProp (printf "xmobar -x %d" (toInteger sid)) (pure barCfg)
+barSpawn :: PP -> ScreenId -> StatusBarConfig
+barSpawn bCfg sid = statusBarProp (printf "xmobar -x %d" (toInteger sid)) (pure bCfg)
 
 randrChangeHook :: X ()
 randrChangeHook = spawn "autorandr --change"

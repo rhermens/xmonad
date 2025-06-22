@@ -54,6 +54,7 @@ executable xmobar
   build-depends:
       X11
     , base >=4.7 && <5
+    , dbus
     , xmobar
     , xmonad
     , xmonad-cfg

@@ -59,6 +59,7 @@ executables:
     dependencies:
     - xmonad-cfg
     - xmobar
+    - dbus
 
 tests:
   xmonad-cfg-test:
