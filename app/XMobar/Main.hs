@@ -4,7 +4,7 @@ import Lib (XResources (..), getXResources)
 import Xmobar
 import Data.Word (Word32)
 import DBus (MemberName, MethodError, MethodCall (methodCallDestination), methodCall)
-import DBus.Client (connectSession, getPropertyValue, Client)
+import DBus.Client (connectSession, getPropertyValue, Client, disconnect)
 
 main :: IO ()
 main = do
@@ -100,6 +100,7 @@ instance Exec Dunst where
     dbus <- connectSession
     history <- getPropertyHistoryLength dbus
     disp <- getPropertyDisplayedLength dbus
+    disconnect dbus
 
     return $ case (history, disp) of
       (Right h, Right d) -> show d ++ "/" ++ show h
